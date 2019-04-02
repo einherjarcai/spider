@@ -47,6 +47,7 @@ class enterpriseSpider():
         code = 'var a' + code.split('document.cookie')[1].split("Path=/;'")[0] + "Path=/;';return a;"
         code = 'window = {}; \n' + code
         js_final = "function getClearance(){" + code + "};"
+        js_final = js_final.replace("return return", "return eval")
         ctx = execjs.compile(js_final)
         jsl_clearance = ctx.call('getClearance')
         jsl_cle = jsl_clearance.split(';')[0].split('=')[1]
